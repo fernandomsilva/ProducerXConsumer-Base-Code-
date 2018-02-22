@@ -1,7 +1,7 @@
 from global_functions import *
+from config import *
 import sys
-
-LIMIT_OF_INDIVIDUALS = 100
+import time
 
 id = (int(sys.argv[1]) % LIMIT_OF_INDIVIDUALS)
 current_iteration = 0
@@ -19,11 +19,9 @@ while True:
 	file_data = readFromFile(file_pointer)
 	closeFile(file_pointer)
 	temp = int(file_data[0])
-	print temp
-	print current_iteration
 
 	if temp > current_iteration:
-		current_iteration = temp
+		#current_iteration = temp
 		individual = int(file_data[id + 1])
 
 		result = functionToRun(individual)
@@ -36,5 +34,8 @@ while True:
 		
 		current_iteration += 1
 	else:
-		pass
-		#CODE TO SLEEP <---
+		time.sleep(SLEEP_TIME_CONSUMER)
+	
+	if current_iteration >= number_of_generations+1:
+		break
+

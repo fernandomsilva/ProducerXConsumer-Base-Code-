@@ -1,11 +1,13 @@
 from global_functions import *
+from config import *
 import sys
 import random
+import time
+import uuid
 
 number_of_consumers = int(sys.argv[1])
 current_iteration = 1
 last_iteration = 0
-number_of_generations = 10
 
 input_filename_prefix = "output_"
 input_filename_sufix = ".txt"
@@ -15,7 +17,9 @@ eraseFile(log_filename)
 
 output_filename = "test.txt"
 
-results_filename = "gen-output.txt"
+results_filename = "gen-output-" + str(uuid.uuid4()) + ".txt"
+temp_file = createFile(results_filename)
+closeFile(temp_file)
 
 total = 0.0
 
@@ -46,7 +50,7 @@ while True:
 	if current_iteration == 1:
 		produce()
 		last_iteration = current_iteration
-
+	
 	log_file = openFile(log_filename)
 	log_data = readFromFile(log_file)
 	closeFile(log_file)
@@ -62,7 +66,7 @@ while True:
 		produce()
 		last_iteration = current_iteration
 	
-	if current_iteration >= number_of_generations:
-		print total
+	if current_iteration >= number_of_generations+1:
 		break
-	#CODE TO SLEEP <---
+
+	time.sleep(SLEEP_TIME_PRODUCER)

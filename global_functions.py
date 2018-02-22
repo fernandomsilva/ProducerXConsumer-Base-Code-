@@ -4,7 +4,6 @@ directory = "data/"
 #	directory = directory_path
 
 def createFile(filename):
-	#Code to check if file exists <---
 	file_pointer = open(directory + filename, 'w')
 	
 	return file_pointer
